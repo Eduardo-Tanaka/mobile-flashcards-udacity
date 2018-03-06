@@ -14,11 +14,12 @@ const ViewContainer = glamorous.view({
   height: height / 6,
   marginVertical: 15,
   marginHorizontal: 20,
+  elevation: 7,
   shadowColor: '#000',
   shadowOffset: { width: 0, height: 2 },
   shadowOpacity: 0.8,
   shadowRadius: 3,
-  elevation: 1,
+  backgroundColor : "#000"
 })
 
 const ViewDeckProgress = glamorous(LinearGradient)({

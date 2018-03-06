@@ -1,6 +1,7 @@
 import { 
   GET_DECKS, 
   ADD_DECK, 
+  DELETE_DECK,
   GET_DECK_BY_ID, 
   ADD_QUESTION, 
   GET_FAVORITES,
@@ -27,6 +28,13 @@ function decks (state = initialState, action) {
       return {
         ...state,
         decks: state.decks.concat(action.deck),
+      }
+
+    case DELETE_DECK :
+      return {
+        ...state,
+        decks: state.decks.filter(item => { if(item.key !== action.id) return item }),
+        deck: null
       }
 
     case GET_DECK_BY_ID :

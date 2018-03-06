@@ -1,10 +1,10 @@
 import React from 'react'
 import { Alert } from 'react-native'
-import { Button, Input, CheckBox, Text } from 'react-native-elements'
+import { Button, Input, Text } from 'react-native-elements'
 import { MaterialCommunityIcons, Entypo, FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import Dimensions from 'Dimensions'
-import RadioForm from 'react-native-simple-radio-button'
+//import RadioForm from 'react-native-simple-radio-button'
 import PropTypes from 'prop-types'
 
 import { MyStyledView } from '../utils/glamorous-components'
@@ -14,35 +14,43 @@ import { fetchAddQuestion } from '../actions/index'
 class NewQuestion extends React.Component {
 	constructor(props) {
     super(props);
-    this.state = { text: '', error: false, errorMessage: '', checked: false, value: null }
+    this.state = { 
+      text: '', error: false, errorMessage: '', 
+      textAnswer: '', errorAnswer: false, errorMessageAnswer: ''
+    }
   }
 
   onLayout(e) {
     const { width, height } = Dimensions.get('window')
     // largura da janela menos o padding, para o tamanho do input
     // altura dividido em 4 partes e subtraído os margin top
-    this.setState({ width: width - 20, height: height / 4 - 40 })
+    this.setState({ width: width - 20, height: height / 4 - 60 })
   }
 
   handleText = (text) => {
     this.setState({ text: text, error: false })
   }
 
-  onPressRadio = (value) => {
-    this.setState({ value: value })
+  handleTextAnswer = (text) => {
+    this.setState({ textAnswer: text, errorAnswer: false })
   }
 
   onSubmit = () => {
-    if(this.state.value === null) {
-      Alert.alert("ANSWER", "Choose a answer!")
-      return;
-    }
+    let erro = null;
     const { item } = this.props.navigation.state.params
     if(this.state.text.trim() === '') {
       this.setState({ error: true, errorMessage: 'Write question description' })
+      erro = true
+    }
+    if(this.state.textAnswer.trim() === '') {
+      this.setState({ errorAnswer: true, errorMessageAnswer: 'Write question answer' })
+      erro = true
+    }
+    if(erro) {
       return;
     }
-  	this.props.addQuestion(this.state.text, this.state.value, item)
+
+  	this.props.addQuestion(this.state.text, this.state.textAnswer, item)
       .then(() => Alert.alert("QUESTION", "Question saved!"))
       .catch(error => this.setState({ error: true, errorMessage: error.message }))
   }
@@ -71,21 +79,23 @@ class NewQuestion extends React.Component {
             rightIcon={this.state.error ? <FontAwesome name="times" size={48} color="#dc3545" /> : null}
           />
      		</MyStyledView>
-     		<MyStyledView justifyContent="center" alignItems="center">
-          <RadioForm
-            labelStyle={{margin:20}}
-            buttonSize={40}
-            radio_props={radio_props}
-            initial={0}
-            formHorizontal={true}
-            labelHorizontal={true}
-            buttonColor={'#2196f3'}
-            animation={true}
-            onPress={this.onPressRadio}
-            initial={-1}
+     		<MyStyledView noPadding>
+          <Text h2>Answer</Text>
+          <Input
+            containerStyle={{height:this.state.height, width:this.state.width, borderBottomColor: 'gray', borderBottomWidth: 1}}
+            inputStyle={{marginLeft:0, height:200}}
+            fontSize={40}
+            multiline={true}
+            placeholderTextColor="#b9b9b9"
+            placeholder="Question answer"
+            onChangeText={this.handleTextAnswer}
+            value={this.state.textAnswer}
+            displayError={this.state.errorAnswer}
+            errorMessage={this.state.errorMessageAnswer}
+            rightIcon={this.state.errorAnswer ? <FontAwesome name="times" size={48} color="#dc3545" /> : null}
           />
      		</MyStyledView>
-     		<MyStyledView noPadding>
+     		<MyStyledView noPadding justifyContent="center">
      			<Button
      				buttonStyle={{height:50}}
 					  onPress={this.onSubmit}

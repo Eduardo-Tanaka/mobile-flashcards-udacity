@@ -43,7 +43,7 @@ class Finish extends React.Component {
 					/>
 	      </MyStyledView>
       	<MyStyledView justifyContent="center" alignItems="center">
-  				<Text h2>Score: {score} - {perc}%</Text>
+  				<Text h2>Score: {score} / {questions} - {perc}%</Text>
   			</MyStyledView>
   			<MyStyledView justifyContent='space-around'>
 					<Button

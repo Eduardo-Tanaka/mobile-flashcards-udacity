@@ -27,6 +27,21 @@ class FlashCardsApi {
 	    })
 	}
 
+	static deleteDeck(id) {
+		return fetch(`${url}/decks`, { 
+				method: 'DELETE', 
+				headers, 
+				body: JSON.stringify({ id: id })
+			})
+	    .then((response) => {
+				if (!response.ok) {
+					throw Error("Não foi possível deletar o deck!")
+				}
+				
+		    return response.json()
+	    })
+	}
+
 	static getDeckById(id) {
 		return fetch(`${url}/decks/${id}`, { headers })
 	    .then((response) => {
@@ -38,15 +53,15 @@ class FlashCardsApi {
 	    })
 	}
 
-	static addQuestion(description, value, id) {
+	static addQuestion(description, answer, id) {
 		return fetch(`${url}/decks/${id}/question`, { 
 				method: 'POST', 
 				headers, 
-				body: JSON.stringify({ description: description, value: value, id: id })
+				body: JSON.stringify({ description: description, answer: answer, id: id })
 			})
 	    .then((response) => {
 				if (!response.ok) {
-					throw Error("Nome de deck já utilizado!")
+					throw Error("Erro ao salvar questao!")
 				}
 				
 		    return response.json()

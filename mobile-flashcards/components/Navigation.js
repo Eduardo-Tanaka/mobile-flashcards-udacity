@@ -51,6 +51,24 @@ const NewDeckStack = StackNavigator({
   DeckDetail: { 
     screen: DeckDetail,
   },
+  NewQuestion: {
+    screen: NewQuestion,
+    navigationOptions: {
+      title: "New Question",
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+  },
+  Answer: {
+    screen: Answer
+  },
+  Finish: {
+    screen: Finish,
+    navigationOptions: {
+      title: "Score"
+    }
+  }
 })
 
 const FavoriteStack = StackNavigator({

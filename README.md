@@ -11,6 +11,10 @@ yarn
 yarn start
 ````
 
+## Devices Tested
+- Samsung S7
+- Ipad Air
+
 ## Server api
 The server rest api is located at https://mobile-flashcards-udacity-api.herokuapp.com/
 

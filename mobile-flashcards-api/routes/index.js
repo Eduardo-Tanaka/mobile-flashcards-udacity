@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	const help = `
-	<pre>
+  const help = `
+  <pre>
     Welcome to the Mobile FlashCards API!
 
     The following endpoints are available:
@@ -23,13 +23,19 @@ router.get('/', function(req, res, next) {
       PARAMS:
         deck - String: name of the deck
 
+    DELETE /decks
+      USAGE:
+        Delete a deck
+      PARAMS:
+        id - integer: id of the deck
+
     POST /decks/:id/question
       USAGE:
         Add a question for the deck
       PARAMS:
-      	id - integer: id of the deck
+        id - integer: id of the deck
         description - String: description of the question
-        value - integer: Either 0(incorrect) or 1(correct), answer of the question
+        answer - String
 
     GET /favorites
       USAGE:

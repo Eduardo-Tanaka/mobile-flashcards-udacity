@@ -8,7 +8,10 @@ router.get('/', function(req, res, next) {
 		left join TB_FAVORITE as f on d.ID_DECK = f.ID_DECK
 		left join TB_SCORE as s on s.ID_DECK = d.ID_DECK
 		GROUP BY d.ID_DECK`, function (error, results, fields) {
-	  if (error) res.status(500).send(error);
+	  if (error) {
+	  	res.status(500).send(error);
+	  	return;
+	  }
 
 	  res.send(results)
 	});
@@ -18,7 +21,10 @@ router.get('/:id', function(req, res, next) {
 	connection.query(`SELECT * FROM TB_QUESTION as q
 		left join TB_FAVORITE as f on q.ID_DECK = f.ID_DECK
 		WHERE q.ID_DECK = ?`, req.params.id, function (error, results, fields) {
-	  if (error) res.status(500).send(error);
+	  if (error) {
+	  	res.status(500).send(error);
+	  	return;
+	  }
 	  // connected!
 	  res.send(results)
 	});
@@ -29,9 +35,22 @@ router.post('/', function(req, res, next) {
 	  if (error) {
 	  	console.log(error)
 	  	res.status(500).send(error);
+	  	return;
 	  }
 	  // connected
 	  res.send({id: results.insertId})
+	});
+});
+
+router.delete('/', function(req, res, next) {
+	connection.query("DELETE FROM TB_DECK WHERE ID_DECK = ?", req.body.id, function (error, results, fields) {
+	  if (error) {
+	  	console.log(error)
+	  	res.status(500).send(error);
+	  	return;
+	  }
+	  // connected
+	  res.send({id: req.body.id})
 	});
 });
 

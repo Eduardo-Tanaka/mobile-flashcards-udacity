@@ -43,7 +43,7 @@ class Answer extends React.Component {
   }
 
   render() {
-  	const { question, questions, answer, score, item, index } = this.props.navigation.state.params
+  	const { question, questions, questionAnswer, answer, score, item, index } = this.props.navigation.state.params
   	const color = answer ? success : danger
   	const icon  = answer ? 'check' : 'times'
   	const msg		= answer ? 'CONGRATULATIONS!' : 'Ops, Try Again!'
@@ -60,8 +60,9 @@ class Answer extends React.Component {
 					  activeOpacity={0.7}
 					/>
 	      </MyStyledView>
-	      <MyStyledView justifyContent="center" alignItems="center">
-  				<Text h3>{msg}</Text>
+	      <MyStyledView justifyContent="space-around" alignItems="center">
+  				<Text h3 style={{color:color}}>{msg}</Text>
+  				<Text h3>Answer: {questionAnswer}</Text>
   			</MyStyledView>
   			<MyStyledView noPadding >
 					{final

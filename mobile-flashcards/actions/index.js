@@ -2,6 +2,7 @@ import FlashCardsApi from '../api/api'
 
 export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
+export const DELETE_DECK = 'DELETE_DECK'
 export const GET_DECK_BY_ID = 'GET_DECK_BY_ID'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
@@ -45,6 +46,23 @@ export function fetchAddDeck(name) {
 	}
 }
 
+function deleteDeck(id) {
+	return {
+  	type: DELETE_DECK,
+  	id
+	}
+}
+
+export function fetchDeleteDeck(id) {
+	return (dispatch) => {
+    return FlashCardsApi.deleteDeck(id)
+	    .then(data => dispatch(deleteDeck(id)))
+	    .catch((error) => {
+	    	throw Error(error.message);
+	    })
+	}
+}
+
 function getDeckById(questions, key) {
 	return {
   	type: GET_DECK_BY_ID,
@@ -71,9 +89,9 @@ function addQuestion(question, key) {
 	}
 }
 
-export function fetchAddQuestion(description, value, deck) {
+export function fetchAddQuestion(description, answer, deck) {
 	return (dispatch) => {
-    return FlashCardsApi.addQuestion(description, value, deck.key)
+    return FlashCardsApi.addQuestion(description, answer, deck.key)
 	    .then(data => dispatch(addQuestion(data, deck.key)))
 	    .catch((error) => {
 	    	throw Error(error.message);
