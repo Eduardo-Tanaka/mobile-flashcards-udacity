@@ -33,7 +33,7 @@ function decks (state = initialState, action) {
     case DELETE_DECK :
       return {
         ...state,
-        decks: state.decks.filter(item => { if(item.key !== action.id) return item }),
+        decks: state.decks.filter(item => item.key !== action.id),
         deck: null
       }
 
@@ -41,7 +41,7 @@ function decks (state = initialState, action) {
       return {
         ...state,
         questions: action.questions,
-        deck: state.decks.filter(item => { if(item.key === action.key) return item })[0]
+        deck: state.decks.find(item => item.key === action.key)
       }
 
     case ADD_QUESTION :

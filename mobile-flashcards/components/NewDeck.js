@@ -37,7 +37,7 @@ class NewDeck extends React.Component {
 
   render() {
     return (
-      <MyStyledView onLayout={this.onLayout.bind(this)}>
+      <MyStyledView onLayout={() => this.onLayout()}>
       	<MyStyledView justifyContent="center" alignItems="center">
       		<Avatar
 					  xlarge

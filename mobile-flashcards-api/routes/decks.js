@@ -55,7 +55,7 @@ router.delete('/', function(req, res, next) {
 });
 
 router.post('/:id/question', function(req, res, next) {
-	const question = { DS_QUESTION: req.body.description, IC_QUESTION: req.body.value, ID_DECK: req.body.id }
+	const question = { DS_QUESTION: req.body.description, DS_ANSWER: req.body.answer, ID_DECK: req.body.id }
 	connection.query("INSERT INTO TB_QUESTION SET ?", question, function (error, results, fields) {
 	  if (error) {
 	  	res.status(500).send(error);

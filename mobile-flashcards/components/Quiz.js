@@ -22,7 +22,9 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       showAnswer: false,
-      textAnswer: ''
+      textAnswer: '',
+      height: 0,
+      width: 0
     }
   }
 
@@ -61,7 +63,7 @@ class Quiz extends React.Component {
   	const { question, score, item, index } = this.props.navigation.state.params
   	const { questions } = this.props
     return (
-      <MyStyledView onLayout={this.onLayout.bind(this)}>
+      <MyStyledView onLayout={() => this.onLayout()}>
       	<MyStyledView justifyContent="center" alignItems="center">
       		<Avatar
 					  xlarge

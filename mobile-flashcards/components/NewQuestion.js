@@ -16,7 +16,8 @@ class NewQuestion extends React.Component {
     super(props);
     this.state = { 
       text: '', error: false, errorMessage: '', 
-      textAnswer: '', errorAnswer: false, errorMessageAnswer: ''
+      textAnswer: '', errorAnswer: false, errorMessageAnswer: '',
+      width: 0, height: 0
     }
   }
 
@@ -62,7 +63,7 @@ class NewQuestion extends React.Component {
       { label: 'CORRECT', value: 1 }
     ];
     return (
-      <MyStyledView onLayout={this.onLayout.bind(this)}>
+      <MyStyledView onLayout={() => this.onLayout()}>
      		<MyStyledView noPadding>
      			<Text h2>Question</Text>
           <Input
